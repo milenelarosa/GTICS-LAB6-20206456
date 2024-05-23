@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/navbar.html :: header( title = 'Inventario')}"></head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navbar.html :: navbar( active = 'Dispositivos')}"></nav>
+    <h2>Inventario de Dispositivos Transportistas</h2>
+
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Disponibles</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="dispositivo, info : ${listaDispositivos}">
+            <td th:text="${info.index + 1}"></td>
+            <td th:text="${dispositivo.nombre}"></td>
+            <td th:text="${dispositivo.cantidad}"></td>
+            <td th:text="${dispositivo.cantidad}"></td>
+            <td><a class="btn btn-primary"
+                   th:href="@{'/dispositivos/edit' + '?id=' + ${dispositivo.idinventario}}">Editar</a>
+            </td>
+            <td><a class="btn btn-danger"
+                   th:href="@{'/dispositivos/delete' + '?id=' + ${dispositivo.idinventario}}">Borrar</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script th:replace="~{fragments/navbar.html :: footer-bootstrap}"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/navbar.html :: header( title = 'Reservas')}"></head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navbar.html :: navbar( active = 'Reservas')}"></nav>
+    <h2>Inventario de Dispositivos Transportistas</h2>
+
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Dispositivo</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="reserva, info : ${reservaslist}">
+            <td th:text="${info.index + 1}"></td>
+            <td th:text="${reserva.idusuario.nombre}"></td>
+            <td th:text="${reserva.idinventario.nombre}"></td>
+            <td th:text="${reserva.fechainicio}"></td>
+            <td th:text="${reserva.fechafin}"></td>
+            <td><a class="btn btn-danger"
+                   th:href="@{'/dispositivos/edit' + '?id=' + ${reserva.id}}">Cancelar</a>
+            </td>
+            <td><a class="btn btn-success"
+                   th:href="@{'/dispositivos/delete' + '?id=' + ${reserva.id}}">Devolver</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script th:replace="~{fragments/navbar.html :: footer-bootstrap}"></script>
+</body>
+</html>
